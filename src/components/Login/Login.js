@@ -12,6 +12,10 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
+    console.log('EFFECT RUNNING'); // This is just to show that useEffect runs after every render cycle. It is not necessary to have this here.
+  }, []); // This is a dependency array. If you leave it empty, then it will run only once. If you put a variable in it, then it will run when that variable changes. If you put nothing, then it will run after every render cycle.
+
+  useEffect(() => {
     const identifier = setTimeout(() => {
       console.log('Checking form validity!');
       setFormIsValid(
