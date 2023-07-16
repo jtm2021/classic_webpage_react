@@ -12,10 +12,18 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
-  }, [enteredEmail, enteredPassword]);
+    const identifier = setTimeout(() => {
+      console.log('Checking form validity!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500); // This is just to show that useEffect runs after every render cycle. It is not necessary to have this here.
+    
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(identifier); // This is just to show that useEffect runs after every render cycle.
+    }; // This is a clean up function. It runs before the useEffect runs again. It is not necessary to have this here.
+  }, [enteredEmail, enteredPassword]); // enteredEmail and enteredPassword are dependencies. If either of these change, then the useEffect will run.
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
